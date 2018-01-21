@@ -17,6 +17,9 @@ class Dictionary:
                     self.dict.add(word)
                     self.num_words += 1
         dict_file = open("dict.txt", "w+")
+        dict_file.write("Files processed: "+str(self.collection_size)+'\n')
+        dict_file.write("Total words: "+str(self.words_in_collection)+'\n')
+        dict_file.write("Total unique words: "+str(self.num_words)+'\n'+"-----------------------------------"+'\n')
         for word in self.dict:
             dict_file.write(word+'\n')
 
