@@ -9,6 +9,7 @@ class Dictionary:
         self.words_in_collection = 0
         self.collection_size = len(file_list)
         self.matrix = {}
+        self.inverted_index = {}
         count = 0
         for f in file_list:
             list_of_words = open(f, "r").read()
@@ -19,7 +20,10 @@ class Dictionary:
                     self.dict.append(word.upper())
                     self.num_words += 1
                     self.init_list(word)
+                    self.inverted_index[word.upper()]=[]
                 self.matrix.get(word.upper())[count] = 1
+                if count not in self.inverted_index[word.upper()]:
+                    self.inverted_index.get(word.upper()).append(count)
             count += 1
         dict_file = open("dict.txt", "w+")
         dict_file.write("Files processed: "+str(self.collection_size)+'\n')
@@ -35,6 +39,13 @@ class Dictionary:
                 matrix_file.write(str(i)+'\t')
             matrix_file.write('\n')
         matrix_file.close()
+        inverted_index_file = open("index.txt", "w+")
+        for token in self.inverted_index.iterkeys():
+            inverted_index_file.write(token+'\t')
+            for i in self.inverted_index.get(token):
+                inverted_index_file.write(str(i)+'\t')
+            inverted_index_file.write('\n')
+        inverted_index_file.close()
         print("Files processed: " + str(self.collection_size) + '\n')
         print("Total words: " + str(self.words_in_collection) + '\n')
         print("Total unique words: " + str(self.num_words))
