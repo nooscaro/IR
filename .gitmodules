@@ -1,0 +1,3 @@
+[submodule "Data"]
+	path = Data
+	url = https://github.com/OlehKurachenko/KMA_InformationRetrieval_Dictionary_Data.git
