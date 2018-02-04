@@ -32,7 +32,7 @@ class Dictionary:
         self.print_index()
 
     def print_dictionary(self):
-        dict_file = open("Output/dict.txt", "w+")
+        dict_file = open("Dictionary Output/dict.txt", "w+")
         dict_file.write("Files processed: " + str(self.collection_size) + '\n')
         dict_file.write("Total words: " + str(self.words_in_collection) + '\n')
         dict_file.write("Total unique words: " + str(self.num_words) + '\n' + "--------------------------------" + '\n')
@@ -41,8 +41,8 @@ class Dictionary:
         dict_file.close()
 
     def print_matrix(self):
-        matrix_file = open("Output/matrix.txt", "w+")
-        for token in self.matrix.iterkeys():
+        matrix_file = open("Dictionary Output/matrix.txt", "w+")
+        for token in self.matrix.keys():
             matrix_file.write(token + '\t')
             for i in self.matrix.get(token):
                 matrix_file.write(str(i) + '\t')
@@ -50,8 +50,8 @@ class Dictionary:
         matrix_file.close()
 
     def print_index(self):
-        inverted_index_file = open("Output/index.txt", "w+")
-        for token in self.inverted_index.iterkeys():
+        inverted_index_file = open("Dictionary Output/index.txt", "w+")
+        for token in self.inverted_index.keys():
             inverted_index_file.write(token + '\t')
             for i in self.inverted_index.get(token):
                 inverted_index_file.write(str(i) + '\t')
@@ -106,7 +106,7 @@ class Dictionary:
                     current = self.boolean_or(current, self.inverted_index[tokens[i+1].upper()])
             else:
                 return False
-        self.print_result(req, self.files_by_indices(current))
+        self.print_result(request, self.files_by_indices(current))
 
     @staticmethod
     def print_result(string, list):
@@ -117,12 +117,3 @@ class Dictionary:
     def word(self, str):
         return str!="&&" and str!="||" and str in self.dict
 
-
-if __name__ == '__main__':
-    collection = []
-    for filename in glob.glob("Data/Samples/*.txt"):
-        print(filename)
-        collection.append(filename)
-    dictionary = Dictionary(collection)
-    req = raw_input("Search request using '&&' (and) and '||' (or): ")
-    dictionary.parse_request(req)
