@@ -25,40 +25,7 @@ def parse_to_biword_tokens(str):
     return res
 
 
-def list_interception(l):
-    if len(l) == 1:
-        return l[0]
-    current = l[0]
-    for i in range(1,len(l)):
-        current = boolean_and(current, l[i])
-    if len(current) >= MIN_RESULT:
-        return current
-    return False
 
-
-def list_union(l):
-    if len(l)==1:
-        return l[0]
-    current = l[0]
-    for i in range(0, len(l)):
-        current = boolean_or(current, l[i])
-    return current
-
-
-def boolean_or(one, two):
-    res = []
-    for i in range(0, len(one)):
-        if i in one or i in two:
-            res.append(i)
-    return res
-
-
-def boolean_and(one, two):
-    res = []
-    for i in range(0,len(one)):
-        if i in one and i in two:
-            res.append(i)
-    return res
 
 
 class BiwordIndex:
@@ -107,10 +74,10 @@ class BiwordIndex:
         for token in requested_tokens:
             if self.get_biword_index(token) is not None:
                 biword_indices.append(self.get_biword_index(token))
-        intercept = list_interception(biword_indices)
+        intercept = self.list_interception(biword_indices)
         if intercept:
             return intercept
-        return list_union(biword_indices)
+        return self.list_union(biword_indices)
 
     def request(self):
         while True:
@@ -125,3 +92,39 @@ class BiwordIndex:
                 print(result)
             else:
                 print("Unfortunately, there was nothing we could find")
+
+    def boolean_and(self,one, two):
+        res = []
+        for i in range(0, self.file_count):
+            if i in one and i in two:
+                res.append(i)
+        return res
+
+    def boolean_or(self, one, two):
+        res = []
+        for i in range(0, self.file_count):
+            if i in one or i in two:
+                res.append(i)
+        return res
+
+    def list_interception(self,l):
+        if len(l) == 0:
+            return False
+        if len(l) == 1:
+            return l[0]
+        current = l[0]
+        for i in range(1, len(l)):
+            current = self.boolean_and(current, l[i])
+        if len(current) >= MIN_RESULT:
+            return current
+        return False
+
+    def list_union(self,l):
+        if len(l) == 0:
+            return False
+        if len(l) == 1:
+            return l[0]
+        current = l[0]
+        for i in range(0, len(l)):
+            current = self.boolean_or(current, l[i])
+        return current

@@ -9,6 +9,7 @@
 import glob
 import Dictionary.dictionary
 import Dictionary.biword_index
+import Dictionary.position_inverted_index
 
 def run_dictionary(collection):
     dictionary = Dictionary.dictionary.Dictionary(collection)
@@ -19,9 +20,15 @@ def run_biword_index(collection):
     biword = Dictionary.biword_index.BiwordIndex(collection)
     biword.request()
 
+def run_postion_index(collection):
+    pos = Dictionary.position_inverted_index.PositionInvertedIndex(collection)
+    pos.process_request()
+
+
 if __name__ == '__main__':
     collection = []
     for filename in glob.glob("Data/Books/*.txt"):
         print(filename)
         collection.append(filename)
-    run_biword_index(collection)
+    # run_biword_index(collection)
+    run_postion_index(collection)
