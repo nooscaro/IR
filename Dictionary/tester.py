@@ -17,6 +17,7 @@ def run_dictionary(collection):
 
 def run_biword_index(collection):
     biword = Dictionary.biword_index.BiwordIndex(collection)
+    biword.request()
 
 if __name__ == '__main__':
     collection = []
