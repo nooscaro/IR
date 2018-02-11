@@ -1,15 +1,15 @@
-''' tester
-    in IR/Dictionary
-    Tester file for dicitonary classes
-    Vera Baklanova (@nooscaro)
-    Applied Mathematics @ FI, NAUKMA-2020
-    https://github.com/nooscaro
-    04/02/18
-'''
+# ''' tester
+#     in IR/Dictionary
+#     Tester file for dicitonary classes
+#     Vera Baklanova (@nooscaro)
+#     Applied Mathematics @ FI, NAUKMA-2020
+#     https://github.com/nooscaro
+#     04/02/18
+# '''
 import glob
-import Dictionary.dictionary
-import Dictionary.biword_index
 import Dictionary.position_inverted_index
+import Dictionary.biword_index
+import Dictionary.dictionary
 
 def run_dictionary(collection):
     dictionary = Dictionary.dictionary.Dictionary(collection)
@@ -23,6 +23,8 @@ def run_biword_index(collection):
 def run_postion_index(collection):
     pos = Dictionary.position_inverted_index.PositionInvertedIndex(collection)
     pos.process_request()
+
+
 
 
 if __name__ == '__main__':
