@@ -21,6 +21,7 @@ class ThreeGramIndex:
         self.three_gram_index = {}
         self.inverted_index = {}
         self.files = {}
+        self.pattern = re.compile("[,\s\n\-\u2014!?:.;()\"]+")
         self.parse_files(file_list)
         self.save_index()
 
@@ -35,7 +36,7 @@ class ThreeGramIndex:
             file.close()
 
     def parse_file(self, content, file_no):
-        tokens = re.split("[,\s\n\-\u2014!?:.;()\"]+", content)
+        tokens = re.split(self.pattern, content)
         for token in tokens:
             token = token.upper()
             threegrams = parse_into_threegrams(token)

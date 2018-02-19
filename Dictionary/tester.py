@@ -11,6 +11,8 @@ import Dictionary.position_inverted_index
 import Dictionary.biword_index
 import Dictionary.dictionary
 import Dictionary.three_gram_index
+import Dictionary.permu_term_index
+import Dictionary.tree_index
 
 def run_dictionary(collection):
     dictionary = Dictionary.dictionary.Dictionary(collection)
@@ -33,12 +35,20 @@ def run_three_gram_index(collection):
             return
         thrgr.process_request(req)
 
+def run_permu_index(collection):
+    pi = Dictionary.permu_term_index.PermuIndex(collection)
+
+
+def run_tree_index(collection):
+    tree = Dictionary.tree_index.TreeIndex(collection)
 
 if __name__ == '__main__':
     collection = []
-    for filename in glob.glob("Data/Books/*.txt"):
+    for filename in glob.glob("Data/Samples/*.txt"):
         print(filename)
         collection.append(filename)
     # run_biword_index(collection)
     # run_postion_index(collection)
-    run_three_gram_index(collection)
+    # run_three_gram_index(collection)
+    # run_permu_index(collection)
+    run_tree_index(collection)
